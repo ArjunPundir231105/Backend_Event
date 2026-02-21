@@ -4,10 +4,11 @@ const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
 require('dotenv').config();
+//const { scrapeAll } = require('./scraper/index'); 
 require('./config/passport'); // we'll create this next
 
 const app = express();
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
 app.use(session({
     secret: process.env.SESSION_SECRET,
