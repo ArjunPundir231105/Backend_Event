@@ -8,13 +8,21 @@ require('dotenv').config();
 require('./config/passport'); // we'll create this next
 
 const app = express();
+app.set("trust proxy", 1);
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
+
+
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        secure: true,
+        sameSite: "none"
+    }
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
